@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
+import re
 import benchmark
 
 def get_distinct_benchmark_programs(benchmarks) -> list:
@@ -22,77 +23,309 @@ def get_IL1_sizes(benchmarks) -> list:
 
    return sizes
 
+def get_DL1_sizes(benchmarks) -> list:
+   sizes = []
+
+   for b in benchmarks:
+      if b['cache_dl1'] not in sizes:
+         sizes.append(b['cache_dl1'])
+
+   return sizes
+
+# def get_UL2_sizes(benchmarks) -> list:
+#    sizes = []
+
+#    for b in benchmarks:
+#       if b['cache_ul2'] not in sizes:
+#          sizes.append(b['cache_ul2'])
+
+#    return sizes
+
+def calc_il1_cache_size(fmtstr: str) -> int:
+   matchstr = r":(\d+):(\d+):(\d+):"
+   matches = re.findall(matchstr, fmtstr)
+
+   size = 0
+
+   size = int(matches[0][0])
+   size = size * int(matches[0][1])
+   size = size * int(matches[0][2])
+
+   return size
+
+def calc_dl1_cache_size(fmtstr: str) -> int:
+   matchstr = r":(\d+):(\d+):(\d+):"
+   matches = re.findall(matchstr, fmtstr)
+
+   size = 0
+
+   size = int(matches[0][0])
+   size = size * int(matches[0][1])
+   size = size * int(matches[0][2])
+
+   return size
+
+def sort_by_il1_cache_size(il1fmts: list) -> list:
+   sorted = []
+
+   for il1fmt in il1fmts:
+      idx = 0
+      for s in sorted:
+         if calc_il1_cache_size(s) > calc_il1_cache_size(il1fmt):
+            break
+         idx += 1
+      sorted.insert(idx, il1fmt)
+
+   return sorted
+
+def sort_by_dl1_cache_size(dl1fmts: list) -> list:
+   sorted = []
+
+   for dl1fmt in dl1fmts:
+      idx = 0
+      for s in sorted:
+         if calc_dl1_cache_size(s) > calc_dl1_cache_size(dl1fmt):
+            break
+         idx += 1
+      sorted.insert(idx, dl1fmt)
+
+   return sorted
+
 def sort_benchmarks_by_il1_cache_size(benchmarks) -> list:
+   sorted = []
+
+   for benchmark in benchmarks:
+      idx = 0
+      for s in sorted:
+         if calc_il1_cache_size(s['cache_il1']) > calc_il1_cache_size(benchmark['cache_il1']):
+            break
+         idx += 1
+      sorted.insert(idx, benchmark)
+
+   return sorted
+
+def sort_benchmarks_by_dl1_cache_size(benchmarks) -> list:
    return benchmarks # not yet implemented
 
-def get_sim_cycles(benchmarks, programs):
+def sort_benchmarks_by_ul2_cache_size(benchmarks) -> list:
+   return benchmarks # not yet implemented
+
+def get_sim_IPC(benchmarks, programs):
    sim_cycle_results = {}
    sim_cycle_results['il1'] = {}
    sim_cycle_results['dl1'] = {}
-   sim_cycle_results['ul1'] = {}
+   sim_cycle_results['ul2'] = {}
 
    program_benchmarks = [b for b in benchmarks.values() if b['benchmark_program_name'] == list(benchmarks.values())[0]['benchmark_program_name']]
    IL1_sizes = get_IL1_sizes(program_benchmarks)
-   # DL1_sizes = get_DL1_sizes(benchmarks, programs[0])
-   # UL2_sizes = get_UL2_sizes(benchmarks, programs[0])
+   DL1_sizes = get_DL1_sizes(program_benchmarks)
+   # UL2_sizes = get_UL2_sizes(program_benchmarks)
 
    for il1 in IL1_sizes:
       sim_cycle_results['il1'][il1] = []
 
-   # for dl1 in DL1_sizes:
-   #    sim_cycle_results['dl1'][dl1] = []
+   for dl1 in DL1_sizes:
+      sim_cycle_results['dl1'][dl1] = []
 
    # for ul2 in UL2_sizes:
-   #    sim_cycle_results['ul1'][ul2] = []
+   #    sim_cycle_results['ul2'][ul2] = []
 
    for program in programs:
       program_benchmarks = [b for b in benchmarks.values() if b['benchmark_program_name'] == program]
-      program_benchmarks = sort_benchmarks_by_il1_cache_size(program_benchmarks)
+      # program_benchmarks = sort_benchmarks_by_il1_cache_size(program_benchmarks)
       for benchmark in program_benchmarks:
          sim_cycle_results['il1'][benchmark['cache_il1']].append(benchmark['sim_IPC'])
    
-      # program_benchmarks = sort_benchmarks_by_dl1_cache_size(program_benchmarks)
-      # for benchmark in program_benchmarks:
-      #    sim_cycle_results['dl1'][benchmark['cache_dl1']].append(benchmark['sim_IPC'])
+      program_benchmarks = sort_benchmarks_by_dl1_cache_size(program_benchmarks)
+      for benchmark in program_benchmarks:
+         sim_cycle_results['dl1'][benchmark['cache_dl1']].append(benchmark['sim_IPC'])
 
-      # program_benchmarks = sort_benchmarks_by_ul1_cache_size(program_benchmarks)
+      # program_benchmarks = sort_benchmarks_by_ul2_cache_size(program_benchmarks)
       # for benchmark in program_benchmarks:
-      #    sim_cycle_results['ul1'][benchmark['cache_ul2']].append(benchmark['sim_IPC'])
+      #    sim_cycle_results['ul2'][benchmark['cache_ul2']].append(benchmark['sim_IPC'])
 
    return sim_cycle_results
 
-def plot_sim_cycles_vs_cache_size(benchmarks, output_dir):
-   fig, axs = plt.subplots(3,1)
+def get_sim_miss_rate(benchmarks, programs, cache_type: str):
+   miss_results = {}
+
+   program_benchmarks = [b for b in benchmarks.values() if b['benchmark_program_name'] == list(benchmarks.values())[0]['benchmark_program_name']]
+   cache_sizes = []
+   search_key = ''
+   cache_key = ''
+
+   if cache_type == 'il1':
+      cache_sizes = get_IL1_sizes(program_benchmarks)
+      search_key = 'il1_miss_rate'
+      cache_key = 'cache_il1'
+   if cache_type == 'dl1':
+      cache_sizes = get_DL1_sizes(program_benchmarks)
+      search_key = 'dl1_miss_rate'
+      cache_key = 'cache_dl1'
+   if cache_type == 'ul2':
+      search_key = 'ul2_miss_rate'
+      cache_key = 'cache_ul2'
+      # cache_sizes = get_UL2_sizes(program_benchmarks)
+
+   for size in cache_sizes:
+      miss_results[size] = []
+
+   for program in programs:
+      program_benchmarks = [b for b in benchmarks.values() if b['benchmark_program_name'] == program]
+      for benchmark in program_benchmarks:
+         miss_results[benchmark[cache_key]].append(benchmark[search_key])
+   
+   return miss_results
+
+def plot_sim_IPC_vs_cache_size(benchmarks, output_dir):
 
    programs = get_distinct_benchmark_programs(benchmarks)
 
-   sim_cycles = get_sim_cycles(benchmarks, programs)
+   sim_cycles = get_sim_IPC(benchmarks, programs)
 
    X_axis = np.arange(len(programs))
 
-   axs[0].set_title('Cache IL1 Size vs SimCycles')
-   # cnt = len(sim_cycles['il1'].keys())
-   # width = 2/cnt
-   offset = -.2
-   for result_key in sim_cycles['il1'].keys():
-      plt.bar(X_axis - offset, sim_cycles['il1'][result_key], .2, label=result_key)
-      offset += .2
+   count = 0
 
-   plt.xticks(X_axis, programs)
-   plt.legend()
+   if len(list(sim_cycles['il1'].items())[0][1]) == len(programs):
+      count += 1
 
-   axs[1].set_title('Cache DL1 Size vs SimCycles')
-   axs[2].set_title('Cache UL2 Size vs SimCycles')
+   if len(list(sim_cycles['dl1'].items())[0][1]) == len(programs):
+      count += 1
+
+   # if len(list(sim_cycles['ul2'].items())[0][1]) == len(programs):
+   #    count += 1
+
+   fig, axs = plt.subplots(count, 1)
+   if type(axs) != list:
+      axs = [axs]
+
+   axs_num = 0
+
+   if len(list(sim_cycles['il1'].items())[0][1]) == len(programs):
+      axs[axs_num].set_title('Cache IL1 Size vs IPC')
+      offset = -.2
+
+      keys_sorted = sort_by_il1_cache_size(sim_cycles['il1'].keys())
+
+      for result_key in keys_sorted:
+         plt.bar(X_axis - offset, sim_cycles['il1'][result_key], .2, label=result_key)
+         offset += .2
+
+      plt.xticks(X_axis, programs)
+      plt.legend()
+      plt.ylabel("IPC")
+      plt.xlabel("Program name")
+      axs_num += 1
+
+   if len(list(sim_cycles['dl1'].items())[0][1]) == len(programs):
+      axs[axs_num].set_title('Cache DL1 Size vs IPC')
+      offset = -.2
+
+      keys_sorted = sort_by_dl1_cache_size(sim_cycles['dl1'].keys())
+
+      for result_key in keys_sorted:
+         plt.bar(X_axis - offset, sim_cycles['dl1'][result_key], .2, label=result_key)
+         offset += .2
+
+      plt.xticks(X_axis, programs)
+      plt.legend()
+      plt.ylabel("IPC")
+      plt.xlabel("Program name")
+      axs_num += 1
+   
+   # if len(list(sim_cycles['ul2'].items())[0][1]) == len(programs):
+   #    axs[axs_num].set_title('Cache UL2 Size vs IPC')
+   #    offset = -.2
+   #    for result_key in sim_cycles['ul2'].keys():
+   #       plt.bar(X_axis - offset, sim_cycles['ul2'][result_key], .2, label=result_key)
+   #       offset += .2
+
+   #    plt.xticks(X_axis, programs)
+   #    plt.legend()
+   #    plt.ylabel("IPC")
+   #    plt.xlabel("Program name")
+   #    axs_num += 1
 
    plt.show()
 
    # plt.savefig(Path(output_dir) / Path("Simcycles.img"))
 
-def plot_mem_access_vs_cache_size():
-   pass
+def plot_miss_rate_vs_cache_size(benchmarks, output_dir):
+   programs = get_distinct_benchmark_programs(benchmarks)
 
-def plot_miss_rate_vs_cache_size():
-   pass
+   sim_miss_rate_il1 = get_sim_miss_rate(benchmarks, programs, 'il1')
+   sim_miss_rate_dl1 = get_sim_miss_rate(benchmarks, programs, 'dl1')
+   # sim_miss_rate_ul1 = get_sim_miss_rate(benchmarks, programs, 'il1')
+
+   X_axis = np.arange(len(programs))
+
+   count = 0
+
+   if len(list(sim_miss_rate_il1.items())[0][1]) == len(programs):
+      count += 1
+
+   if len(list(sim_miss_rate_dl1.items())[0][1]) == len(programs):
+      count += 1
+
+   # if len(list(sim_miss_rate_ul1.items())[0][1]) == len(programs):
+   #    count += 1
+
+   fig, axs = plt.subplots(count, 1)
+   if type(axs) != list:
+      axs = [axs]
+
+   axs_num = 0
+
+   if len(list(sim_miss_rate_il1.items())[0][1]) == len(programs):
+      axs[axs_num].set_title('Cache IL1 Size vs IL1 Miss Rate')
+      offset = -.2
+
+      keys_sorted = sort_by_il1_cache_size(sim_miss_rate_il1.keys())
+
+      for result_key in keys_sorted:
+         plt.bar(X_axis - offset, sim_miss_rate_il1[result_key], .2, label=result_key)
+         offset += .2
+
+      plt.xticks(X_axis, programs)
+      plt.legend()
+      plt.ylabel("IL1 Miss Rate")
+      plt.xlabel("Program name")
+      axs_num += 1
+
+   if len(list(sim_miss_rate_dl1.items())[0][1]) == len(programs):
+      axs[axs_num].set_title('Cache DL1 Size vs DL1 Miss Rate')
+      offset = -.2
+
+      keys_sorted = sort_by_dl1_cache_size(sim_miss_rate_dl1.keys())
+
+      for result_key in keys_sorted:
+         plt.bar(X_axis - offset,sim_miss_rate_dl1[result_key], .2, label=result_key)
+         offset += .2
+
+      plt.xticks(X_axis, programs)
+      plt.legend()
+      plt.ylabel("DL1 Miss Rate")
+      plt.xlabel("Program name")
+      axs_num += 1
+   
+   # if len(list(sim_cycles['ul2'].items())[0][1]) == len(programs):
+   #    axs[axs_num].set_title('Cache UL2 Size vs IPC')
+   #    offset = -.2
+   #    for result_key in sim_cycles['ul2'].keys():
+   #       plt.bar(X_axis - offset, sim_cycles['ul2'][result_key], .2, label=result_key)
+   #       offset += .2
+
+   #    plt.xticks(X_axis, programs)
+   #    plt.legend()
+   #    plt.ylabel("IPC")
+   #    plt.xlabel("Program name")
+   #    axs_num += 1
+
+   plt.show()
+
+   # plt.savefig(Path(output_dir) / Path("Simcycles.img"))
+
 
 def main():
    parser = argparse.ArgumentParser()
@@ -105,7 +338,8 @@ def main():
 
    benchmarks = benchmark.parse_all_result_files_with_file_pattern(args.results_dir, args.file_pattern)
    
-   plot_sim_cycles_vs_cache_size(benchmarks, args.output_dir)
+   # plot_sim_IPC_vs_cache_size(benchmarks, args.output_dir)
+   plot_miss_rate_vs_cache_size(benchmarks, args.output_dir)
    print("hello")
 
 if __name__ == "__main__":
