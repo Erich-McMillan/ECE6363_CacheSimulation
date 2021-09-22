@@ -51,7 +51,9 @@ def parse_all_result_files_with_file_pattern(directory: Path, pattern: str) -> d
       with open(Path(directory) / Path(filename), "r") as f:
          filecontents = f.read()
          benchmark = parse_benchmark_results(filecontents)
+         benchmark["benchmark_program_name"] = filename.split(pattern)[0].replace("_", "")
          benchmark_results[filename] = benchmark
+
 
    return benchmark_results
 
