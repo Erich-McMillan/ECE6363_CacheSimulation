@@ -45,16 +45,16 @@ for benchmark in "${benchmarks[@]}"; do
 
   echo "Running QD"
   echo "Running ${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 > ./../../../${output_dir}/${benchmark}.txt 2>&1"
-  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:ul2 ul2:512:64:1:l" > ./../../../${output_dir}/${benchmark}_QD_128K.txt 2>&1
-  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:ul2 ul2:4096:64:2:l" > ./../../../${output_dir}/${benchmark}_QD_512K.txt 2>&1
-  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:ul2 ul2:2048:64:8:l" > ./../../../${output_dir}/${benchmark}_QD_1M.txt 2>&1
+  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl2 ul2:512:64:4:l" > ./../../../${output_dir}/${benchmark}_QD_128K.txt 2>&1
+  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl2 ul2:2048:64:4:l" > ./../../../${output_dir}/${benchmark}_QD_512K.txt 2>&1
+  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl2 ul2:4096:64:4:l" > ./../../../${output_dir}/${benchmark}_QD_1M.txt 2>&1
 
   echo "Running QE"
   echo "Running ${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 > ./../../../${output_dir}/${benchmark}.txt 2>&1"
-  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:256:32:1:l -cache:ul2 ul2:2048:32:4:l" > ./../../../${output_dir}/${benchmark}_QE_32B_Block.txt 2>&1
-  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:128:64:1:l -cache:ul2 ul2:1024:64:4:l" > ./../../../${output_dir}/${benchmark}_QE_64B_Block.txt 2>&1
-  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:64:128:1:l -cache:ul2 ul2:512:128:4:l" > ./../../../${output_dir}/${benchmark}_QE_128B_Block.txt 2>&1
-  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:32:256:1:l -cache:ul2 ul2:256:256:4:l" > ./../../../${output_dir}/${benchmark}_QE_256B_Block.txt 2>&1
+  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:256:32:1:l -cache:dl2 ul2:2048:32:4:l" > ./../../../${output_dir}/${benchmark}_QE_32B_Block.txt 2>&1
+  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:128:64:1:l -cache:dl2 ul2:1024:64:4:l" > ./../../../${output_dir}/${benchmark}_QE_64B_Block.txt 2>&1
+  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:64:128:1:l -cache:dl2 ul2:512:128:4:l" > ./../../../${output_dir}/${benchmark}_QE_128B_Block.txt 2>&1
+  eval time "${run} './../../../../sim-outorder' ${binary} -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:32:256:1:l -cache:dl2 ul2:256:256:4:l" > ./../../../${output_dir}/${benchmark}_QE_256B_Block.txt 2>&1
 
   popd > /dev/null
 done

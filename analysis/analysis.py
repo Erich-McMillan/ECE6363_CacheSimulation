@@ -227,11 +227,11 @@ def plot_sim_IPC_vs_cache_size(benchmarks, file_pattern, output_dir):
       keys_sorted = sort_by_cache_size(sim_cycles['il1'].keys())
 
       for result_key in keys_sorted:
-         plt.bar(X_axis - offset, sim_cycles['il1'][result_key], .2, label=result_key)
+         axs[axs_num].bar(X_axis - offset, sim_cycles['il1'][result_key], .2, label=result_key)
          offset += .2
 
       plt.xticks(X_axis, programs)
-      plt.legend()
+      axs[axs_num].legend()
       plt.ylabel("IPC")
       plt.xlabel("Program name")
       axs_num += 1
@@ -243,11 +243,11 @@ def plot_sim_IPC_vs_cache_size(benchmarks, file_pattern, output_dir):
       keys_sorted = sort_by_cache_size(sim_cycles['dl1'].keys())
 
       for result_key in keys_sorted:
-         plt.bar(X_axis - offset, sim_cycles['dl1'][result_key], .2, label=result_key)
+         axs[axs_num].bar(X_axis - offset, sim_cycles['dl1'][result_key], .2, label=result_key)
          offset += .2
 
       plt.xticks(X_axis, programs)
-      plt.legend()
+      axs[axs_num].legend()
       plt.ylabel("IPC")
       plt.xlabel("Program name")
       axs_num += 1
@@ -256,16 +256,16 @@ def plot_sim_IPC_vs_cache_size(benchmarks, file_pattern, output_dir):
       axs[axs_num].set_title('Cache UL2 Size vs IPC')
       offset = -.2
       for result_key in sim_cycles['ul2'].keys():
-         plt.bar(X_axis - offset, sim_cycles['ul2'][result_key], .2, label=result_key)
+         axs[axs_num].bar(X_axis - offset, sim_cycles['ul2'][result_key], .2, label=result_key)
          offset += .2
 
       plt.xticks(X_axis, programs)
-      plt.legend()
+      axs[axs_num].legend()
       plt.ylabel("IPC")
       plt.xlabel("Program name")
       axs_num += 1
 
-   # plt.show()
+   fig.set_size_inches(14,7)
 
    plt.savefig(Path(output_dir) / Path(f"sim_ipc_{file_pattern}.png"))
 
@@ -302,11 +302,11 @@ def plot_miss_rate_vs_cache_size(benchmarks, file_pattern, output_dir):
       keys_sorted = sort_by_cache_size(sim_miss_rate_il1.keys())
 
       for result_key in keys_sorted:
-         plt.bar(X_axis - offset, sim_miss_rate_il1[result_key], .2, label=result_key)
+         axs[axs_num].bar(X_axis - offset, sim_miss_rate_il1[result_key], .2, label=result_key)
          offset += .2
 
       plt.xticks(X_axis, programs)
-      plt.legend()
+      axs[axs_num].legend()
       plt.ylabel("IL1 Miss Rate")
       plt.xlabel("Program name")
       axs_num += 1
@@ -318,11 +318,11 @@ def plot_miss_rate_vs_cache_size(benchmarks, file_pattern, output_dir):
       keys_sorted = sort_by_cache_size(sim_miss_rate_dl1.keys())
 
       for result_key in keys_sorted:
-         plt.bar(X_axis - offset,sim_miss_rate_dl1[result_key], .2, label=result_key)
+         axs[axs_num].bar(X_axis - offset,sim_miss_rate_dl1[result_key], .2, label=result_key)
          offset += .2
 
       plt.xticks(X_axis, programs)
-      plt.legend()
+      axs[axs_num].legend()
       plt.ylabel("DL1 Miss Rate")
       plt.xlabel("Program name")
       axs_num += 1
@@ -334,16 +334,16 @@ def plot_miss_rate_vs_cache_size(benchmarks, file_pattern, output_dir):
       keys_sorted = sort_by_cache_size(sim_miss_rate_ul1.keys())
    
       for result_key in keys_sorted:
-         plt.bar(X_axis - offset, sim_miss_rate_ul1[result_key], .2, label=result_key)
+         axs[axs_num].bar(X_axis - offset, sim_miss_rate_ul1[result_key], .2, label=result_key)
          offset += .2
 
       plt.xticks(X_axis, programs)
-      plt.legend()
+      axs[axs_num].legend()
       plt.ylabel("UL2 Miss Rate")
       plt.xlabel("Program name")
       axs_num += 1
 
-   # plt.show()
+   fig.set_size_inches(14,7)
 
    plt.savefig(Path(output_dir) / Path(f"sim_miss_rate_{file_pattern}.png"))
 
@@ -380,11 +380,11 @@ def plot_accesses_vs_cache_size(benchmarks, file_pattern, output_dir):
       keys_sorted = sort_by_cache_size(sim_miss_rate_il1.keys())
 
       for result_key in keys_sorted:
-         plt.bar(X_axis - offset, sim_miss_rate_il1[result_key], .2, label=result_key)
+         axs[axs_num].bar(X_axis - offset, sim_miss_rate_il1[result_key], .2, label=result_key)
          offset += .2
 
       plt.xticks(X_axis, programs)
-      plt.legend()
+      axs[axs_num].legend()
       plt.ylabel("IL1 Accesses")
       plt.xlabel("Program name")
       axs_num += 1
@@ -396,11 +396,11 @@ def plot_accesses_vs_cache_size(benchmarks, file_pattern, output_dir):
       keys_sorted = sort_by_cache_size(sim_miss_rate_dl1.keys())
 
       for result_key in keys_sorted:
-         plt.bar(X_axis - offset,sim_miss_rate_dl1[result_key], .2, label=result_key)
+         axs[axs_num].bar(X_axis - offset,sim_miss_rate_dl1[result_key], .2, label=result_key)
          offset += .2
 
       plt.xticks(X_axis, programs)
-      plt.legend()
+      axs[axs_num].legend()
       plt.ylabel("DL1 Accesses")
       plt.xlabel("Program name")
       axs_num += 1
@@ -412,16 +412,16 @@ def plot_accesses_vs_cache_size(benchmarks, file_pattern, output_dir):
       keys_sorted = sort_by_cache_size(sim_miss_rate_ul1.keys())
    
       for result_key in keys_sorted:
-         plt.bar(X_axis - offset, sim_miss_rate_ul1[result_key], .2, label=result_key)
+         axs[axs_num].bar(X_axis - offset, sim_miss_rate_ul1[result_key], .2, label=result_key)
          offset += .2
 
       plt.xticks(X_axis, programs)
-      plt.legend()
+      axs[axs_num].legend()
       plt.ylabel("UL2 Accesses")
       plt.xlabel("Program name")
       axs_num += 1
 
-   # plt.show()
+   fig.set_size_inches(14,7)
 
    plt.savefig(Path(output_dir) / Path(f"sim_mem_accesses_{file_pattern}.png"))
 
