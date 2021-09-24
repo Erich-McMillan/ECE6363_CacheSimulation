@@ -10,7 +10,7 @@
          "request": "launch",
          "program": "${file}",
          "console": "integratedTerminal",
-         "args": ["--results-dir", "benchmarks/output/spec2000/results/", "--file-pattern", "QA", "--output-dir", "D:/School/ECE6363/ECE6363_CacheSimulation/analysis_plots/QA" ]
+         "args": ["--results-dir", "benchmarks/output/spec2000/results/", "--file-pattern", "QD", "--output-dir", "D:/School/ECE6363/ECE6363_CacheSimulation/analysis_plots/QD" ]
       }
    ]
 }

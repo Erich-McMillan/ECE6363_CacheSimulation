@@ -6,9 +6,9 @@ entity, or for any commercial purpose, without the prior written permission
 of SimpleScalar, LLC (info@simplescalar.com).
 
 warning: section `.comment' ignored...
-sim: command line: ./../../../../sim-outorder -fastfwd 20000000 -max:inst 200000000 -cache:dl2 ul2:2048:64:8:l ./../../spec2000binaries/equake00.peak.ev6 
+sim: command line: ./../../../../sim-outorder -fastfwd 20000000 -max:inst 200000000 -cache:dl2 ul2:4096:64:4:l ./../../spec2000binaries/equake00.peak.ev6 
 
-sim: simulation started @ Wed Sep 22 22:16:39 2021, options follow:
+sim: simulation started @ Thu Sep 23 20:57:15 2021, options follow:
 
 sim-outorder: This simulator implements a very detailed out-of-order issue
 superscalar processor with a two-level memory system and speculative
@@ -49,7 +49,7 @@ latency of all pipeline operations.
 -lsq:size                   8 # load/store queue (LSQ) size
 -cache:dl1       dl1:128:32:4:l # l1 data cache config, i.e., {<config>|none}
 -cache:dl1lat               1 # l1 data cache hit latency (in cycles)
--cache:dl2       ul2:2048:64:8:l # l2 data cache config, i.e., {<config>|none}
+-cache:dl2       ul2:4096:64:4:l # l2 data cache config, i.e., {<config>|none}
 -cache:dl2lat               6 # l2 data cache hit latency (in cycles)
 -cache:il1       il1:512:32:1:l # l1 inst cache config, i.e., {<config>|dl1|dl2|none}
 -cache:il1lat               1 # l1 instruction cache hit latency (in cycles)
@@ -139,8 +139,8 @@ sim_num_refs               70802146 # total number of loads and stores committed
 sim_num_loads              53813907 # total number of loads committed
 sim_num_stores         16988239.0000 # total number of stores committed
 sim_num_branches           33049976 # total number of branches committed
-sim_elapsed_time                 84 # total simulation time in seconds
-sim_inst_rate          2380952.4048 # simulation speed (in insts/sec)
+sim_elapsed_time                 95 # total simulation time in seconds
+sim_inst_rate          2105263.1789 # simulation speed (in insts/sec)
 sim_total_insn            211512794 # total number of instructions executed
 sim_total_refs             74226962 # total number of loads and stores executed
 sim_total_loads            56704135 # total number of loads executed
@@ -212,8 +212,8 @@ dl1.inv_rate                 0.0000 # invalidation rate (i.e., invs/ref)
 ul2.accesses                5128470 # total number of accesses
 ul2.hits                    5114459 # total number of hits
 ul2.misses                    14011 # total number of misses
-ul2.replacements                 23 # total number of replacements
-ul2.writebacks                   12 # total number of writebacks
+ul2.replacements                247 # total number of replacements
+ul2.writebacks                  175 # total number of writebacks
 ul2.invalidations                 0 # total number of invalidations
 ul2.miss_rate                0.0027 # miss rate (i.e., misses/ref)
 ul2.repl_rate                0.0000 # replacement rate (i.e., repls/ref)
@@ -256,6 +256,6 @@ mem.ptab_accesses        1632800234 # total page table accesses
 mem.ptab_miss_rate           0.0053 # first level page table miss rate
 
 
-real	1m24.061s
-user	1m24.059s
+real	1m34.930s
+user	1m34.929s
 sys	0m0.000s

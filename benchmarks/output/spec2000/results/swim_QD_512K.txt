@@ -6,9 +6,9 @@ entity, or for any commercial purpose, without the prior written permission
 of SimpleScalar, LLC (info@simplescalar.com).
 
 warning: section `.comment' ignored...
-sim: command line: ./../../../../sim-outorder -fastfwd 20000000 -max:inst 200000000 -cache:dl2 ul2:4096:64:2:l ./../../spec2000binaries/swim00.peak.ev6 
+sim: command line: ./../../../../sim-outorder -fastfwd 20000000 -max:inst 200000000 -cache:dl2 ul2:2048:64:4:l ./../../spec2000binaries/swim00.peak.ev6 
 
-sim: simulation started @ Wed Sep 22 23:03:41 2021, options follow:
+sim: simulation started @ Thu Sep 23 21:18:19 2021, options follow:
 
 sim-outorder: This simulator implements a very detailed out-of-order issue
 superscalar processor with a two-level memory system and speculative
@@ -49,7 +49,7 @@ latency of all pipeline operations.
 -lsq:size                   8 # load/store queue (LSQ) size
 -cache:dl1       dl1:128:32:4:l # l1 data cache config, i.e., {<config>|none}
 -cache:dl1lat               1 # l1 data cache hit latency (in cycles)
--cache:dl2       ul2:4096:64:2:l # l2 data cache config, i.e., {<config>|none}
+-cache:dl2       ul2:2048:64:4:l # l2 data cache config, i.e., {<config>|none}
 -cache:dl2lat               6 # l2 data cache hit latency (in cycles)
 -cache:il1       il1:512:32:1:l # l1 inst cache config, i.e., {<config>|dl1|dl2|none}
 -cache:il1lat               1 # l1 instruction cache hit latency (in cycles)
@@ -143,37 +143,37 @@ sim_num_refs               48571155 # total number of loads and stores committed
 sim_num_loads              43685998 # total number of loads committed
 sim_num_stores         4885157.0000 # total number of stores committed
 sim_num_branches            6492447 # total number of branches committed
-sim_elapsed_time                 65 # total simulation time in seconds
-sim_inst_rate          3076923.0769 # simulation speed (in insts/sec)
+sim_elapsed_time                 74 # total simulation time in seconds
+sim_inst_rate          2702702.7027 # simulation speed (in insts/sec)
 sim_total_insn            200108198 # total number of instructions executed
 sim_total_refs             48607197 # total number of loads and stores executed
 sim_total_loads            43722038 # total number of loads executed
 sim_total_stores       4885159.0000 # total number of stores executed
 sim_total_branches          6492449 # total number of branches executed
-sim_cycle                 113479907 # total simulation time in cycles
+sim_cycle                 113479283 # total simulation time in cycles
 sim_IPC                      1.7624 # instructions per cycle
 sim_CPI                      0.5674 # cycles per instruction
 sim_exec_BW                  1.7634 # total instructions (mis-spec + committed) per cycle
 sim_IPB                     30.8050 # instruction per branch
-IFQ_count                 450101332 # cumulative IFQ occupancy
-IFQ_fcount                110816805 # cumulative IFQ full count
+IFQ_count                 450098836 # cumulative IFQ occupancy
+IFQ_fcount                110816181 # cumulative IFQ full count
 ifq_occupancy                3.9664 # avg IFQ occupancy (insn's)
 ifq_rate                     1.7634 # avg IFQ dispatch rate (insn/cycle)
 ifq_latency                  2.2493 # avg IFQ occupant latency (cycle's)
 ifq_full                     0.9765 # fraction of time (cycle's) IFQ was full
-RUU_count                1747573203 # cumulative RUU occupancy
-RUU_fcount                 95542252 # cumulative RUU full count
+RUU_count                1747563219 # cumulative RUU occupancy
+RUU_fcount                 95541628 # cumulative RUU full count
 ruu_occupancy               15.3998 # avg RUU occupancy (insn's)
 ruu_rate                     1.7634 # avg RUU dispatch rate (insn/cycle)
 ruu_latency                  8.7331 # avg RUU occupant latency (cycle's)
 ruu_full                     0.8419 # fraction of time (cycle's) RUU was full
-LSQ_count                 337896809 # cumulative LSQ occupancy
+LSQ_count                 337895847 # cumulative LSQ occupancy
 LSQ_fcount                 10403578 # cumulative LSQ full count
 lsq_occupancy                2.9776 # avg LSQ occupancy (insn's)
 lsq_rate                     1.7634 # avg LSQ dispatch rate (insn/cycle)
 lsq_latency                  1.6886 # avg LSQ occupant latency (cycle's)
 lsq_full                     0.0917 # fraction of time (cycle's) LSQ was full
-sim_slip                 2333885847 # total number of slip cycles
+sim_slip                 2333874901 # total number of slip cycles
 avg_sim_slip                11.6694 # the average slip between issue and retirement
 bpred_bimod.lookups         6492451 # total number of bpred lookups
 bpred_bimod.updates         6492446 # total number of updates
@@ -214,13 +214,13 @@ dl1.repl_rate                0.0106 # replacement rate (i.e., repls/ref)
 dl1.wb_rate                  0.0105 # writeback rate (i.e., wrbks/ref)
 dl1.inv_rate                 0.0000 # invalidation rate (i.e., invs/ref)
 ul2.accesses                1022678 # total number of accesses
-ul2.hits                     753121 # total number of hits
-ul2.misses                   269557 # total number of misses
-ul2.replacements             261365 # total number of replacements
+ul2.hits                     753145 # total number of hits
+ul2.misses                   269533 # total number of misses
+ul2.replacements             261341 # total number of replacements
 ul2.writebacks               261100 # total number of writebacks
 ul2.invalidations                 0 # total number of invalidations
 ul2.miss_rate                0.2636 # miss rate (i.e., misses/ref)
-ul2.repl_rate                0.2556 # replacement rate (i.e., repls/ref)
+ul2.repl_rate                0.2555 # replacement rate (i.e., repls/ref)
 ul2.wb_rate                  0.2553 # writeback rate (i.e., wrbks/ref)
 ul2.inv_rate                 0.0000 # invalidation rate (i.e., invs/ref)
 itlb.accesses             200235809 # total number of accesses
@@ -260,6 +260,6 @@ mem.ptab_accesses        1290269186 # total page table accesses
 mem.ptab_miss_rate           0.0000 # first level page table miss rate
 
 
-real	1m5.223s
-user	1m5.216s
-sys	0m0.004s
+real	1m13.563s
+user	1m13.547s
+sys	0m0.013s
