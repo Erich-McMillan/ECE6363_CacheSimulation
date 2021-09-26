@@ -6,9 +6,9 @@ entity, or for any commercial purpose, without the prior written permission
 of SimpleScalar, LLC (info@simplescalar.com).
 
 warning: section `.comment' ignored...
-sim: command line: ./../../../../sim-outorder -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:256:32:1:l -cache:dl2 ul2:2048:32:4:l ./../../spec2000binaries/wupwise00.peak.ev6 
+sim: command line: ./../../../../sim-outorder -fastfwd 20000000 -max:inst 200000000 -cache:il1 il1:256:32:1:l -cache:dl1 dl1:256:32:1:l -cache:dl2 ul2:2048:32:4:l ./../../spec2000binaries/wupwise00.peak.ev6 
 
-sim: simulation started @ Wed Sep 22 23:12:56 2021, options follow:
+sim: simulation started @ Sun Sep 26 17:22:36 2021, options follow:
 
 sim-outorder: This simulator implements a very detailed out-of-order issue
 superscalar processor with a two-level memory system and speculative
@@ -51,7 +51,7 @@ latency of all pipeline operations.
 -cache:dl1lat               1 # l1 data cache hit latency (in cycles)
 -cache:dl2       ul2:2048:32:4:l # l2 data cache config, i.e., {<config>|none}
 -cache:dl2lat               6 # l2 data cache hit latency (in cycles)
--cache:il1       il1:512:32:1:l # l1 inst cache config, i.e., {<config>|dl1|dl2|none}
+-cache:il1       il1:256:32:1:l # l1 inst cache config, i.e., {<config>|dl1|dl2|none}
 -cache:il1lat               1 # l1 instruction cache hit latency (in cycles)
 -cache:il2                dl2 # l2 instruction cache config, i.e., {<config>|dl2|none}
 -cache:il2lat               6 # l2 instruction cache hit latency (in cycles)
@@ -145,8 +145,8 @@ sim_num_refs               24489797 # total number of loads and stores committed
 sim_num_loads              12244896 # total number of loads committed
 sim_num_stores         12244901.0000 # total number of stores committed
 sim_num_branches            8163266 # total number of branches committed
-sim_elapsed_time                 50 # total simulation time in seconds
-sim_inst_rate          4000000.0400 # simulation speed (in insts/sec)
+sim_elapsed_time                 57 # total simulation time in seconds
+sim_inst_rate          3508771.9649 # simulation speed (in insts/sec)
 sim_total_insn            200000004 # total number of instructions executed
 sim_total_refs             24489798 # total number of loads and stores executed
 sim_total_loads            12244897 # total number of loads executed
@@ -262,6 +262,6 @@ mem.ptab_accesses         711566418 # total page table accesses
 mem.ptab_miss_rate           0.0063 # first level page table miss rate
 
 
-real	0m50.877s
-user	0m50.864s
-sys	0m0.012s
+real	0m57.136s
+user	0m57.120s
+sys	0m0.016s

@@ -6,9 +6,9 @@ entity, or for any commercial purpose, without the prior written permission
 of SimpleScalar, LLC (info@simplescalar.com).
 
 warning: section `.comment' ignored...
-sim: command line: ./../../../../sim-outorder -fastfwd 20000000 -max:inst 200000000 -cache:dl1 dl1:128:64:1:l -cache:dl2 ul2:1024:64:4:l ./../../spec2000binaries/equake00.peak.ev6 
+sim: command line: ./../../../../sim-outorder -fastfwd 20000000 -max:inst 200000000 -cache:il1 il1:128:64:1:l -cache:dl1 dl1:128:64:1:l -cache:dl2 ul2:1024:64:4:l ./../../spec2000binaries/equake00.peak.ev6 
 
-sim: simulation started @ Wed Sep 22 22:19:27 2021, options follow:
+sim: simulation started @ Sun Sep 26 16:47:32 2021, options follow:
 
 sim-outorder: This simulator implements a very detailed out-of-order issue
 superscalar processor with a two-level memory system and speculative
@@ -51,7 +51,7 @@ latency of all pipeline operations.
 -cache:dl1lat               1 # l1 data cache hit latency (in cycles)
 -cache:dl2       ul2:1024:64:4:l # l2 data cache config, i.e., {<config>|none}
 -cache:dl2lat               6 # l2 data cache hit latency (in cycles)
--cache:il1       il1:512:32:1:l # l1 inst cache config, i.e., {<config>|dl1|dl2|none}
+-cache:il1       il1:128:64:1:l # l1 inst cache config, i.e., {<config>|dl1|dl2|none}
 -cache:il1lat               1 # l1 instruction cache hit latency (in cycles)
 -cache:il2                dl2 # l2 instruction cache config, i.e., {<config>|dl2|none}
 -cache:il2lat               6 # l2 instruction cache hit latency (in cycles)
@@ -134,47 +134,47 @@ sim: ** fast forwarding 20000000 insts **
 sim: ** starting performance simulation **
 
 sim: ** simulation statistics **
-sim_num_insn              200000002 # total number of instructions committed
+sim_num_insn              200000001 # total number of instructions committed
 sim_num_refs               70802146 # total number of loads and stores committed
 sim_num_loads              53813907 # total number of loads committed
 sim_num_stores         16988239.0000 # total number of stores committed
-sim_num_branches           33049976 # total number of branches committed
-sim_elapsed_time                 86 # total simulation time in seconds
-sim_inst_rate          2325581.4186 # simulation speed (in insts/sec)
-sim_total_insn            211390160 # total number of instructions executed
-sim_total_refs             74175190 # total number of loads and stores executed
-sim_total_loads            56653309 # total number of loads executed
-sim_total_stores       17521881.0000 # total number of stores executed
-sim_total_branches         34922109 # total number of branches executed
-sim_cycle                 115497776 # total simulation time in cycles
-sim_IPC                      1.7316 # instructions per cycle
-sim_CPI                      0.5775 # cycles per instruction
-sim_exec_BW                  1.8303 # total instructions (mis-spec + committed) per cycle
+sim_num_branches           33049975 # total number of branches committed
+sim_elapsed_time                 96 # total simulation time in seconds
+sim_inst_rate          2083333.3438 # simulation speed (in insts/sec)
+sim_total_insn            210660577 # total number of instructions executed
+sim_total_refs             74073935 # total number of loads and stores executed
+sim_total_loads            56580613 # total number of loads executed
+sim_total_stores       17493322.0000 # total number of stores executed
+sim_total_branches         34773367 # total number of branches executed
+sim_cycle                 123616828 # total simulation time in cycles
+sim_IPC                      1.6179 # instructions per cycle
+sim_CPI                      0.6181 # cycles per instruction
+sim_exec_BW                  1.7041 # total instructions (mis-spec + committed) per cycle
 sim_IPB                      6.0514 # instruction per branch
-IFQ_count                 299204360 # cumulative IFQ occupancy
-IFQ_fcount                 65541280 # cumulative IFQ full count
-ifq_occupancy                2.5906 # avg IFQ occupancy (insn's)
-ifq_rate                     1.8303 # avg IFQ dispatch rate (insn/cycle)
-ifq_latency                  1.4154 # avg IFQ occupant latency (cycle's)
-ifq_full                     0.5675 # fraction of time (cycle's) IFQ was full
-RUU_count                1227794566 # cumulative RUU occupancy
-RUU_fcount                 38414842 # cumulative RUU full count
-ruu_occupancy               10.6305 # avg RUU occupancy (insn's)
-ruu_rate                     1.8303 # avg RUU dispatch rate (insn/cycle)
-ruu_latency                  5.8082 # avg RUU occupant latency (cycle's)
-ruu_full                     0.3326 # fraction of time (cycle's) RUU was full
-LSQ_count                 443930433 # cumulative LSQ occupancy
-LSQ_fcount                  9690756 # cumulative LSQ full count
-lsq_occupancy                3.8436 # avg LSQ occupancy (insn's)
-lsq_rate                     1.8303 # avg LSQ dispatch rate (insn/cycle)
-lsq_latency                  2.1001 # avg LSQ occupant latency (cycle's)
-lsq_full                     0.0839 # fraction of time (cycle's) LSQ was full
-sim_slip                 1885375231 # total number of slip cycles
-avg_sim_slip                 9.4269 # the average slip between issue and retirement
-bpred_bimod.lookups        35613665 # total number of bpred lookups
-bpred_bimod.updates        33049974 # total number of updates
-bpred_bimod.addr_hits      31693343 # total number of address-predicted hits
-bpred_bimod.dir_hits       31693480 # total number of direction-predicted hits (includes addr-hits)
+IFQ_count                 285055627 # cumulative IFQ occupancy
+IFQ_fcount                 61615401 # cumulative IFQ full count
+ifq_occupancy                2.3060 # avg IFQ occupancy (insn's)
+ifq_rate                     1.7041 # avg IFQ dispatch rate (insn/cycle)
+ifq_latency                  1.3532 # avg IFQ occupant latency (cycle's)
+ifq_full                     0.4984 # fraction of time (cycle's) IFQ was full
+RUU_count                1205559905 # cumulative RUU occupancy
+RUU_fcount                 33353468 # cumulative RUU full count
+ruu_occupancy                9.7524 # avg RUU occupancy (insn's)
+ruu_rate                     1.7041 # avg RUU dispatch rate (insn/cycle)
+ruu_latency                  5.7228 # avg RUU occupant latency (cycle's)
+ruu_full                     0.2698 # fraction of time (cycle's) RUU was full
+LSQ_count                 434008355 # cumulative LSQ occupancy
+LSQ_fcount                  9267255 # cumulative LSQ full count
+lsq_occupancy                3.5109 # avg LSQ occupancy (insn's)
+lsq_rate                     1.7041 # avg LSQ dispatch rate (insn/cycle)
+lsq_latency                  2.0602 # avg LSQ occupant latency (cycle's)
+lsq_full                     0.0750 # fraction of time (cycle's) LSQ was full
+sim_slip                 1856839295 # total number of slip cycles
+avg_sim_slip                 9.2842 # the average slip between issue and retirement
+bpred_bimod.lookups        35408006 # total number of bpred lookups
+bpred_bimod.updates        33049972 # total number of updates
+bpred_bimod.addr_hits      31693341 # total number of address-predicted hits
+bpred_bimod.dir_hits       31693478 # total number of direction-predicted hits (includes addr-hits)
 bpred_bimod.misses          1356494 # total number of misses
 bpred_bimod.jr_hits         5473519 # total number of address-predicted hits for JR's
 bpred_bimod.jr_seen         5532927 # total number of JR's seen
@@ -184,43 +184,43 @@ bpred_bimod.bpred_addr_rate    0.9590 # branch address-prediction rate (i.e., ad
 bpred_bimod.bpred_dir_rate    0.9590 # branch direction-prediction rate (i.e., all-hits/updates)
 bpred_bimod.bpred_jr_rate    0.9893 # JR address-prediction rate (i.e., JR addr-hits/JRs seen)
 bpred_bimod.bpred_jr_non_ras_rate.PP    0.8928 # non-RAS JR addr-pred rate (ie, non-RAS JR hits/JRs seen)
-bpred_bimod.retstack_pushes      5122658 # total number of address pushed onto ret-addr stack
-bpred_bimod.retstack_pops      5026561 # total number of address popped off of ret-addr stack
+bpred_bimod.retstack_pushes      5097471 # total number of address pushed onto ret-addr stack
+bpred_bimod.retstack_pops      4998425 # total number of address popped off of ret-addr stack
 bpred_bimod.used_ras.PP      4978569 # total number of RAS predictions used
 bpred_bimod.ras_hits.PP      4978562 # total number of RAS hits
 bpred_bimod.ras_rate.PP    1.0000 # RAS prediction rate (i.e., RAS hits/used RAS)
-il1.accesses              220197703 # total number of accesses
-il1.hits                  215140079 # total number of hits
-il1.misses                  5057624 # total number of misses
-il1.replacements            5057352 # total number of replacements
+il1.accesses              221229462 # total number of accesses
+il1.hits                  214087686 # total number of hits
+il1.misses                  7141776 # total number of misses
+il1.replacements            7141672 # total number of replacements
 il1.writebacks                    0 # total number of writebacks
 il1.invalidations                 0 # total number of invalidations
-il1.miss_rate                0.0230 # miss rate (i.e., misses/ref)
-il1.repl_rate                0.0230 # replacement rate (i.e., repls/ref)
+il1.miss_rate                0.0323 # miss rate (i.e., misses/ref)
+il1.repl_rate                0.0323 # replacement rate (i.e., repls/ref)
 il1.wb_rate                  0.0000 # writeback rate (i.e., wrbks/ref)
 il1.inv_rate                 0.0000 # invalidation rate (i.e., invs/ref)
-dl1.accesses               72334200 # total number of accesses
-dl1.hits                   70245601 # total number of hits
-dl1.misses                  2088599 # total number of misses
-dl1.replacements            2088471 # total number of replacements
+dl1.accesses               72390899 # total number of accesses
+dl1.hits                   70302139 # total number of hits
+dl1.misses                  2088760 # total number of misses
+dl1.replacements            2088632 # total number of replacements
 dl1.writebacks               681125 # total number of writebacks
 dl1.invalidations                 0 # total number of invalidations
 dl1.miss_rate                0.0289 # miss rate (i.e., misses/ref)
 dl1.repl_rate                0.0289 # replacement rate (i.e., repls/ref)
 dl1.wb_rate                  0.0094 # writeback rate (i.e., wrbks/ref)
 dl1.inv_rate                 0.0000 # invalidation rate (i.e., invs/ref)
-ul2.accesses                7827348 # total number of accesses
-ul2.hits                    7813333 # total number of hits
-ul2.misses                    14015 # total number of misses
-ul2.replacements               9919 # total number of replacements
-ul2.writebacks                 8143 # total number of writebacks
+ul2.accesses                9911661 # total number of accesses
+ul2.hits                    9897649 # total number of hits
+ul2.misses                    14012 # total number of misses
+ul2.replacements               9916 # total number of replacements
+ul2.writebacks                 8183 # total number of writebacks
 ul2.invalidations                 0 # total number of invalidations
-ul2.miss_rate                0.0018 # miss rate (i.e., misses/ref)
-ul2.repl_rate                0.0013 # replacement rate (i.e., repls/ref)
-ul2.wb_rate                  0.0010 # writeback rate (i.e., wrbks/ref)
+ul2.miss_rate                0.0014 # miss rate (i.e., misses/ref)
+ul2.repl_rate                0.0010 # replacement rate (i.e., repls/ref)
+ul2.wb_rate                  0.0008 # writeback rate (i.e., wrbks/ref)
 ul2.inv_rate                 0.0000 # invalidation rate (i.e., invs/ref)
-itlb.accesses             220197703 # total number of accesses
-itlb.hits                 220197684 # total number of hits
+itlb.accesses             221229462 # total number of accesses
+itlb.hits                 221229443 # total number of hits
 itlb.misses                      19 # total number of misses
 itlb.replacements                 0 # total number of replacements
 itlb.writebacks                   0 # total number of writebacks
@@ -229,8 +229,8 @@ itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
 itlb.repl_rate               0.0000 # replacement rate (i.e., repls/ref)
 itlb.wb_rate                 0.0000 # writeback rate (i.e., wrbks/ref)
 itlb.inv_rate                0.0000 # invalidation rate (i.e., invs/ref)
-dtlb.accesses              72674728 # total number of accesses
-dtlb.hits                  72674496 # total number of hits
+dtlb.accesses              72570691 # total number of accesses
+dtlb.hits                  72570459 # total number of hits
 dtlb.misses                     232 # total number of misses
 dtlb.replacements               104 # total number of replacements
 dtlb.writebacks                   0 # total number of writebacks
@@ -251,11 +251,11 @@ ld_environ_base        0x011ff97000 # program environment base address address
 ld_target_big_endian              0 # target executable endian-ness, non-zero if big endian
 mem.page_count                  202 # total number of pages allocated
 mem.page_mem                  1616k # total size of memory pages allocated
-mem.ptab_misses             8583203 # total first level page table misses
-mem.ptab_accesses        1632387086 # total page table accesses
+mem.ptab_misses             8661721 # total first level page table misses
+mem.ptab_accesses        1634264662 # total page table accesses
 mem.ptab_miss_rate           0.0053 # first level page table miss rate
 
 
-real	1m25.372s
-user	1m25.371s
+real	1m36.394s
+user	1m36.394s
 sys	0m0.000s
